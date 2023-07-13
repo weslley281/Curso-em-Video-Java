@@ -1,3 +1,5 @@
+package Aula04;
+
 public class Caneta {
     String modelo;
     String cor;

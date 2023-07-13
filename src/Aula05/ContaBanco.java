@@ -1,3 +1,5 @@
+package Aula05;
+
 public class ContaBanco {
     public int numConta;
     protected String tipo;
