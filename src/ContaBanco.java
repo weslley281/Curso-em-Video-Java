@@ -42,7 +42,7 @@ public class ContaBanco {
         this.saldo = saldo;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 
@@ -60,7 +60,7 @@ public class ContaBanco {
             this.setSaldo(150);
             System.out.println("Conta poupança aberta com  sucesso");
         }else {
-            System.out.println("Erro ao abrir conta");
+            System.out.println("Tipo de conta invalida");
         }
     }
 
@@ -75,11 +75,56 @@ public class ContaBanco {
         }
     }
 
-    public void sacar(){
-
+    public void sacar(float v){
+        if (this.getStatus()){
+            if (this.getSaldo() >= v){
+                this.setSaldo(this.getSaldo() - v);
+                System.out.printf("O saque de R$ %.2f foi feito na conta de %s", v, getDono());
+            }else {
+                System.out.println("Saldo insuficiente");
+            }
+        }else {
+            System.out.println("Conta Fechada");
+        }
     }
 
     public void pagarMensal(){
+        int v = 0;
+        if (this.getTipo() == "CC"){
+            v = 12;
+        } else if (this.getTipo() == "CP") {
+            v = 20;
+        }else {
+            System.out.println("Tipo de conta invalida");
+            return;
+        }
 
+        if (this.getStatus()){
+            this.setSaldo(this.getSaldo() - v);
+            System.out.println("Mensalidade paga com sucesso");
+        }else {
+            System.out.println("A conta está fechada");
+        }
+    }
+
+    public void depositar(float v){
+        if (this.getStatus()){
+            this.setSaldo(this.getSaldo() + v);
+            System.out.printf("Deposito de R$ %.2f foi feito na conta de %s", v, getDono());
+        }else {
+            System.out.println("A conta está fechada");
+        }
+    }
+
+    public void estadoAtual(){
+        if (getTipo() != "CC" && getTipo() != "CP"){
+            return;
+        }
+        System.out.println("------------------------------------");
+        System.out.println("Conta: " + this.getNumConta());
+        System.out.println("Tipo: " + this.getTipo());
+        System.out.println("Dono: " + this.getDono());
+        System.out.println("Saldo: " + this.getSaldo());
+        System.out.println("Status: " + this.getStatus());
     }
 }
